@@ -12,19 +12,31 @@ export function Dashboard() {
   const handlePrediction = async (formData) => {
     setIsLoading(true)
     try {
-      // In a real application, this would be an actual API call
-      // For demo purposes, we'll simulate a delay and a response
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      // Mock response - in a real app this would come from the API
-      const mockPrice = Math.floor(Math.random() * 5000000) + 1000000
-      const mockRange = {
-        min: mockPrice - mockPrice * 0.1,
-        max: mockPrice + mockPrice * 0.1,
+      // ✅ Directly use formData (already aligned with backend schema)
+      const response = await fetch("http://127.0.0.1:8000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-      setPredictedPrice(mockPrice)
-      setConfidenceRange(mockRange)
+
+      const data = await response.json()
+      const price = data["Predicted Price"]
+
+      // Create ±10% confidence interval
+      const range = {
+        min: Math.round(price * 0.9),
+        max: Math.round(price * 1.1),
+      }
+
+      setPredictedPrice(price)
+      setConfidenceRange(range)
     } catch (error) {
       console.error('Error predicting price:', error)
+      alert('Failed to fetch prediction. Please try again.')
     } finally {
       setIsLoading(false)
     }
