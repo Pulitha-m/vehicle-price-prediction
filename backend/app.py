@@ -3,25 +3,33 @@ from pydantic import BaseModel
 import pandas as pd
 import joblib
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 # ==========================
 # FastAPI Setup
 # ==========================
+
 app = FastAPI(title="Car Price Prediction API")
 
-# ✅ Enable CORS for your React frontend (localhost:5173)
+# Load frontend URL from environment (Render) or fall back to localhost
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
+# Define allowed origins
 origins = [
     "http://localhost:5173",   # Vite default dev server
-    "http://127.0.0.0:5173",   # sometimes React runs on 127.0.0.1
+    "http://127.0.0.1:5173",   # Sometimes React runs here
+    FRONTEND_URL               # Deployed frontend (from Render env var)
 ]
 
+# ✅ Use the origins list here, not "*"
 app.add_middleware(
     CORSMiddleware,
-    allow_origins="*",       # only allow these origins
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],         # allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],         # allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 
 # ==========================
