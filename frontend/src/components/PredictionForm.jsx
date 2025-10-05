@@ -29,6 +29,7 @@ export function PredictionForm({ onSubmit, isLoading }) {
     e.preventDefault();
     onSubmit({
       ...formData,
+        model: formData.model.toUpperCase(),
       yom: parseInt(formData.yom),
       mileage: parseFloat(formData.mileage),
       engine: parseFloat(formData.engine),
