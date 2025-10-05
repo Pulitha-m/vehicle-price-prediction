@@ -50,6 +50,8 @@ See the [LICENSE](LICENSE) file for details.
 The project uses the **Sri Lankan Second Vehicle/Car Price Dataset** sourced from Kaggle, created by *Prasad Nirmal*.  
 It contains around **10,000 vehicle listings** collected from online marketplaces in Sri Lanka, covering various brands and models across multiple years.
 
+**Dataset link** : https://www.kaggle.com/datasets/prasadnirmal/srilankan-second-vehiclecar-price-dataset
+
 Each record includes detailed attributes such as:
 
 - Brand / Model  
