@@ -13,7 +13,7 @@ export function Dashboard() {
     setIsLoading(true)
     try {
       // ✅ Directly use formData (already aligned with backend schema)
-     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/predict`, {
+     const response = await fetch(`http://127.0.0.1:8000/predict`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(formData),

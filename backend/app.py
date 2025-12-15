@@ -107,6 +107,10 @@ class VehicleRequest(BaseModel):
     year_listed: int = 2025
     month_listed: int = 1
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 # Predict endpoint
 @app.post("/predict")
 def predict_price(vehicle: VehicleRequest):
